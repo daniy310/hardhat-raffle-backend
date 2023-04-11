@@ -2,7 +2,7 @@ const { getNamedAccounts, deployments, ethers, network } = require("hardhat");
 const {
   developmentChains,
   networkConfig,
-} = require("../../../helper.hardhat.config");
+} = require("../../helper.hardhat.config");
 const { assert, expect } = require("chai");
 
 developmentChains.includes(network.name)
@@ -36,10 +36,10 @@ developmentChains.includes(network.name)
                 await expect(raffle.getPlayer(0)).to.be.reverted; //checking if the players array has been reseted
                 assert.equal(recentWinner.toString(), accounts[0].address);
                 assert.equal(raffleState, 0);
-                // assert.equal(
-                //   winnerEndingBalance.toString(),
-                //   winnerStartingBalance.add(raffleEntranceFee).toString()
-                // );
+                assert.equal(
+                  winnerEndingBalance.toString(),
+                  winnerStartingBalance.add(raffleEntranceFee).toString()
+                );
                 assert(endingTimeStamp > startingTimeStamp);
                 resolve();
               } catch (e) {
